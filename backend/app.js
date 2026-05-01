@@ -1,12 +1,12 @@
+require("dotenv").config(); // 🔥 TOP LINE
+
 const express = require("express");
-const dotenv = require("dotenv");
 const cors = require("cors");
 const connectDB = require("./config/db");
+
 const authRoutes = require("./routes/authRoutes");
 const apiRoutes = require("./routes/apiRoutes");
 const gatewayRoutes = require("./routes/gatewayRoutes");
-
-dotenv.config();
 
 const app = express();
 
@@ -15,7 +15,7 @@ app.use(express.json());
 
 connectDB();
 
-app.use("/auth", authRoutes);
+app.use("/api/auth", authRoutes);
 app.use("/api/apis", apiRoutes);
 app.use("/gateway", gatewayRoutes);
 

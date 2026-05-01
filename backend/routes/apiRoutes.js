@@ -1,9 +1,15 @@
 const express = require("express");
 const router = express.Router();
 
-const { createApi, generateKey } = require("../controllers/apiController");
+const authMiddleware = require("../middleware/authMiddleware");
+const {
+  createApi,
+  generateKey,
+  getApis,
+} = require("../controllers/apiController");
 
-router.post("/create", createApi);
-router.post("/generate-key", generateKey);
-
+// 🔒 Protected routes
+router.post("/create", authMiddleware, createApi);
+router.post("/generate-key", authMiddleware, generateKey);
+router.get("/", authMiddleware, getApis);
 module.exports = router;

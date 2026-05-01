@@ -1,36 +1,102 @@
-# ApiLedger
+# ApiLedger - Usage-Based API Billing Platform
 
-# --Usage-Based API Billing & Metering Platform
+It is a developer-focused SaaS platform that allows users to create APIs, generate API keys, track usage, and implement usage-based billing.
 
-ApiLedger is a developer-focused SaaS platform for tracking API usage and implementing usage-based billing.
+Inspired by platforms like Stripe, RapidAPI, AWS API Gateway, and OpenAI.
 
-Progress
+# - Project Overview
 
-# Backend Setup
+This project simulates a real-world API monetization system where:
 
-Initialized Node.js project
-Set up Express server
-Connected MongoDB database
-Created scalable folder structure
+Developers create APIs
+API keys are generated for access
+All requests go through a central gateway
+Each request is logged and tracked
+Usage is calculated for billing purposes
 
-# Authentication
+# - Tech Stack
 
-- User model created
-- Register API implemented
-- Login API with JWT
+# Backend:
+
+Node.js
+Express.js
+MongoDB (Mongoose)
+JWT Authentication
+Redis (Rate Limiting)
+
+# Frontend:
+
+React (Vite)
+Tailwind CSS
+Axios
+
+# - Features Implemented
+
+Backend
+Authentication
+
+User registration
+User login with JWT
 
 # API Management
 
-- API creation implemented
-- API key generation system added
+Create API
+Fetch user APIs
+Generate API keys
+
+# API Key System
+
+Unique API key generation
+API key validation middleware
 
 # API Gateway
 
-- API key validation middleware
-- Request logging system
-- Proxy forwarding implemented
+API key validation
+Proxy request forwarding
+Centralized routing system
 
-# Rate Limiting & Billing
+# Usage Tracking
 
-- Basic rate limiting middleware added
-- Usage-based billing logic implemented
+Logs request details:
+
+API key
+endpoint
+timestamp
+status
+latency
+
+# Rate Limiting
+
+Redis-based rate limiting per API key
+
+# Billing System
+
+Tracks API usage
+Calculates usage-based billing
+
+# Frontend
+
+Authentication UI
+Login page
+Register page
+Form validation and error handling
+
+# Landing Page
+
+Hero section
+Navigation to login/register
+
+# Dashboard
+
+Sidebar and Navbar layout
+Protected routes
+
+# API Management UI
+
+Create API form
+API listing
+Generate API key
+API key display with:-
+Masked view
+Show/Hide toggle
+Copy functionality

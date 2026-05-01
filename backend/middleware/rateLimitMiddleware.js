@@ -1,27 +1,44 @@
-const rateLimitStore = {};
+const redis = require("../config/redis");
 
-const rateLimitMiddleware = (req, res, next) => {
-  const key = req.apiKey._id.toString();
-  const currentTime = Date.now();
+const rateLimitMiddleware = async (req, res, next) => {
+  try {
+    const apiKeyId = req.apiKey._id.toString();
+    const plan = req.apiKey?.plan || "free";
 
-  const windowTime = 60 * 1000; // 1 minute
-  const maxRequests = 10; // limit
+    // 🔥 Plan आधारित limits
+    const limits = {
+      free: 10,
+      pro: 100,
+    };
 
-  if (!rateLimitStore[key]) {
-    rateLimitStore[key] = [];
+    const limit = limits[plan] || 10;
+
+    const redisKey = `rate:${apiKeyId}`;
+
+    const current = await redis.incr(redisKey);
+
+    if (current === 1) {
+      await redis.expire(redisKey, 60); // 60 sec window
+    }
+
+    const ttl = await redis.ttl(redisKey);
+
+    // 📊 Headers (important)
+    res.setHeader("X-RateLimit-Limit", limit);
+    res.setHeader("X-RateLimit-Remaining", Math.max(limit - current, 0));
+    res.setHeader("X-RateLimit-Reset", ttl);
+
+    if (current > limit) {
+      return res.status(429).json({
+        message: "Rate limit exceeded",
+        retryAfter: ttl,
+      });
+    }
+
+    next();
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
-
-  // remove old timestamps
-  rateLimitStore[key] = rateLimitStore[key].filter(
-    (timestamp) => currentTime - timestamp < windowTime,
-  );
-
-  if (rateLimitStore[key].length >= maxRequests) {
-    return res.status(429).json({ message: "Rate limit exceeded" });
-  }
-
-  rateLimitStore[key].push(currentTime);
-  next();
 };
 
 module.exports = rateLimitMiddleware;
