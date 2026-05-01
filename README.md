@@ -12,3 +12,9 @@ Initialized Node.js project
 Set up Express server
 Connected MongoDB database
 Created scalable folder structure
+
+### Day 2 – Authentication
+
+- User model created
+- Register API implemented
+- Login API with JWT
