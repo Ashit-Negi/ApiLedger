@@ -29,3 +29,8 @@ Created scalable folder structure
 - API key validation middleware
 - Request logging system
 - Proxy forwarding implemented
+
+# Rate Limiting & Billing
+
+- Basic rate limiting middleware added
+- Usage-based billing logic implemented
