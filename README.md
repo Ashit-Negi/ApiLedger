@@ -6,15 +6,20 @@ ApiLedger is a developer-focused SaaS platform for tracking API usage and implem
 
 Progress
 
-# - Day 1 – Backend Setup
+# Backend Setup
 
 Initialized Node.js project
 Set up Express server
 Connected MongoDB database
 Created scalable folder structure
 
-### Day 2 – Authentication
+# Authentication
 
 - User model created
 - Register API implemented
 - Login API with JWT
+
+# API Management
+
+- API creation implemented
+- API key generation system added
