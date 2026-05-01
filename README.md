@@ -23,3 +23,9 @@ Created scalable folder structure
 
 - API creation implemented
 - API key generation system added
+
+# API Gateway
+
+- API key validation middleware
+- Request logging system
+- Proxy forwarding implemented
