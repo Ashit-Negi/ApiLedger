@@ -14,7 +14,7 @@ function Landing() {
     <div className="min-h-screen bg-gray-50">
       {/* 🔥 Navbar */}
       <div className="flex justify-between items-center px-8 py-4 bg-white shadow-sm">
-        <h1 className="text-xl font-bold text-green-600">MeterFlow</h1>
+        <h1 className="text-xl font-bold text-green-600">ApiLedger</h1>
 
         <div className="space-x-4">
           <button
@@ -90,7 +90,7 @@ function Landing() {
 
       {/* 🔥 Footer */}
       <div className="text-center py-6 text-gray-500 text-sm">
-        © 2026 MeterFlow. All rights reserved.
+        © 2026 ApiLedger. All rights reserved.
       </div>
     </div>
   );

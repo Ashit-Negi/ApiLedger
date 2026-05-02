@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const connectDB = async () => {
   try {
     const conn = await mongoose.connect(process.env.MONGO_URI, {
-      dbName: "meterflow",
+      dbName: "apiledger", // 🔥 DB NAME
     });
 
     console.log(`MongoDB Connected: ${conn.connection.host}`);

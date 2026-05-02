@@ -115,7 +115,7 @@ Billing estimation display
 
 - Features Planned (Next Steps)
 
-Stripe Integration (MeterFlow style billing)
+Stripe Integration (apiledger style billing)
 
 Real payment system using Stripe
 Webhook handling for successful payments
