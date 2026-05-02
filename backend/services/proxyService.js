@@ -1,49 +1,52 @@
 const axios = require("axios");
 
 const proxyRequest = async (req, res) => {
-  const startTime = Date.now();
-
   try {
-    const api = req.api; // ✅ from middleware
+    const api = req.api;
 
-    // 🎯 Build target URL
-    const path = req.originalUrl.replace(`/gateway/${api._id}`, "");
-    const targetUrl = api.baseUrl + path;
+    if (!api || !api.isActive) {
+      return res.status(404).json({ message: "API not active" });
+    }
 
-    // 🔁 Forward request
+    // 🔥 get endpoint AFTER /gateway/:apiId
+    let endpoint = req.originalUrl.split(`/gateway/${api._id}`)[1] || "";
+
+    // 🔥 CLEAN BUG (most important fix)
+    endpoint = endpoint.replace(/\n/g, "").trim();
+
+    // 🔥 prevent double slash
+    const base = api.baseUrl.endsWith("/")
+      ? api.baseUrl.slice(0, -1)
+      : api.baseUrl;
+
+    const path = endpoint.startsWith("/") ? endpoint : `/${endpoint}`;
+
+    const targetUrl = `${base}${path}`;
+
+    console.log("==== PROXY DEBUG ====");
+    console.log("METHOD:", req.method);
+    console.log("TARGET URL:", targetUrl);
+    console.log("====================");
+
     const response = await axios({
       method: req.method,
       url: targetUrl,
-      data: req.body,
       headers: {
-        ...req.headers,
-        host: undefined, // remove host header
+        "Content-Type": "application/json",
       },
-      timeout: 5000,
-    });
-
-    const latency = Date.now() - startTime;
-
-    // 📊 (future: usage log yahan store hoga)
-    console.log("API HIT:", {
-      apiId: api._id,
-      status: response.status,
-      latency,
+      data: req.body,
     });
 
     res.status(response.status).json(response.data);
   } catch (error) {
-    const latency = Date.now() - startTime;
+    console.error("PROXY ERROR FULL:", error.message);
 
-    console.error("Proxy Error:", {
-      message: error.message,
-      latency,
-    });
+    if (error.response) {
+      console.error("AXIOS DATA:", error.response.data);
+      return res.status(error.response.status).json(error.response.data);
+    }
 
-    res.status(error.response?.status || 500).json({
-      message: "Proxy error",
-      error: error.response?.data || error.message,
-    });
+    res.status(500).json({ message: "Proxy error" });
   }
 };
 

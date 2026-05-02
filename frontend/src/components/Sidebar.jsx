@@ -13,7 +13,7 @@ function Sidebar() {
 
   return (
     <div className="w-64 bg-white shadow-md p-4">
-      <h1 className="text-xl font-bold mb-6">MeterFlow</h1>
+      <h1 className="text-xl font-bold mb-6">APILEDGER</h1>
 
       <nav className="space-y-2">
         <Link to="/dashboard" className={linkClass("/dashboard")}>

@@ -100,3 +100,99 @@ API key display with:-
 Masked view
 Show/Hide toggle
 Copy functionality
+
+API Gateway UI
+
+View all API endpoints
+Test API endpoints via gateway
+Display request logs (basic)
+
+Usage Dashboard
+
+View total API requests
+Usage summary per API
+Billing estimation display
+
+- Features Planned (Next Steps)
+
+Stripe Integration (MeterFlow style billing)
+
+Real payment system using Stripe
+Webhook handling for successful payments
+Subscription / pay-as-you-go model
+
+Advanced Analytics
+
+Graph-based usage visualization
+Daily / monthly usage breakdown
+Top APIs and endpoints tracking
+
+API Testing Playground
+
+Built-in interface to test APIs using API key
+Request builder (GET, POST, headers, body)
+
+Team / Multi-user Support
+
+Organization-based API management
+Multiple users under one account
+
+Notifications System
+
+Usage alerts
+Billing alerts
+Rate limit warnings
+
+- Project Architecture
+  Client (React Frontend)
+  Backend API (Node.js + Express)
+  Middleware Layer (Auth + API Key Validation + Rate Limiting)
+  API Gateway
+  Target API (User-defined APIs)
+
+- How It Works
+
+User registers and logs in
+
+User creates an API by providing a base URL
+
+System generates a unique API key
+
+All requests are made through ApiLedger Gateway
+
+Gateway validates API key and rate limits
+
+Request is forwarded to actual API
+
+Response is returned to client
+
+Usage is logged for billing
+
+- Folder Structure (Backend)
+
+controllers/
+models/
+routes/
+middleware/
+utils/
+config/
+
+- Folder Structure (Frontend)
+
+components/
+pages/
+context/
+services/
+utils/
+
+- API Endpoints (Sample)
+
+POST /api/auth/register
+POST /api/auth/login
+
+POST /api/apis/create
+GET /api/apis
+
+POST /api/keys/generate
+
+POST /gateway/:apiId/\*

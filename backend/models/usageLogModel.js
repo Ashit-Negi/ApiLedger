@@ -9,6 +9,12 @@ const usageLogSchema = new mongoose.Schema(
     endpoint: String,
     status: Number,
     latency: Number,
+
+    // 🔥 NEW FIELD (IMPORTANT)
+    billed: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true },
 );

@@ -1,0 +1,23 @@
+const API_ID = "69f60378af4a6971d6724274";
+const API_KEY =
+  "mf_0b012bb8473a6bcf3750491b020f0173b262bfa506b2e1bba9a1c5186d6fcbe3";
+
+const URL = `http://localhost:5000/gateway/${API_ID}/posts`;
+
+const run = async () => {
+  for (let i = 1; i <= 200; i++) {
+    try {
+      const res = await fetch(URL, {
+        headers: {
+          "x-api-key": API_KEY,
+        },
+      });
+
+      console.log(`Request ${i} → ${res.status}`);
+    } catch (err) {
+      console.log(`Request ${i} → ERROR`);
+    }
+  }
+};
+
+run();

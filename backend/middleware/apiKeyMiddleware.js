@@ -1,5 +1,4 @@
 const ApiKey = require("../models/apiKeyModel");
-const Api = require("../models/apiModel");
 
 const apiKeyMiddleware = async (req, res, next) => {
   try {
@@ -9,27 +8,29 @@ const apiKeyMiddleware = async (req, res, next) => {
       return res.status(401).json({ message: "API key required" });
     }
 
-    // 🔍 Find API Key + attach API
-    const apiKey = await ApiKey.findOne({
-      key,
-      status: "active",
-    }).populate("apiId");
+    // 🔍 find key
+    const apiKey = await ApiKey.findOne({ key }).populate("apiId");
 
     if (!apiKey) {
       return res.status(403).json({ message: "Invalid API key" });
     }
 
-    // 🔒 Check API active
+    // 🔥 check revoked
+    if (apiKey.status !== "active") {
+      return res.status(403).json({ message: "API key revoked" });
+    }
+
+    // 🔒 check API active
     if (!apiKey.apiId || !apiKey.apiId.isActive) {
       return res.status(403).json({ message: "API is inactive" });
     }
 
-    // 📊 Update usage (lightweight tracking)
-    apiKey.usageCount += 1;
+    // 📊 update usage safely
+    apiKey.usageCount = (apiKey.usageCount || 0) + 1;
     apiKey.lastUsedAt = new Date();
     await apiKey.save();
 
-    // attach for next middleware (proxy, logger, billing)
+    // attach
     req.apiKey = apiKey;
     req.api = apiKey.apiId;
 
