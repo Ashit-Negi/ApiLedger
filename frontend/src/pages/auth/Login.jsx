@@ -37,7 +37,7 @@ function Login() {
     try {
       setLoading(true);
 
-      const res = await api.post("/auth/login", form);
+      const res = await api.post("api/auth/login", form);
 
       if (!res.data?.data?.accessToken) {
         throw new Error("Invalid response");
@@ -48,8 +48,7 @@ function Login() {
       navigate("/dashboard");
     } catch (err) {
       setErrors({
-        general:
-          err.response?.data?.message || "Invalid email or password",
+        general: err.response?.data?.message || "Invalid email or password",
       });
     } finally {
       setLoading(false);
@@ -59,18 +58,14 @@ function Login() {
   return (
     <AuthLayout>
       <div className="w-full max-w-md p-8">
-        <h2 className="text-2xl font-bold mb-2 text-center">
-          Welcome Back 👋
-        </h2>
+        <h2 className="text-2xl font-bold mb-2 text-center">Welcome Back 👋</h2>
 
         <p className="text-center text-gray-500 mb-6">
           Login to continue to MeterFlow
         </p>
 
         {errors.general && (
-          <p className="text-red-500 text-center mb-4">
-            {errors.general}
-          </p>
+          <p className="text-red-500 text-center mb-4">{errors.general}</p>
         )}
 
         <div className="space-y-4">

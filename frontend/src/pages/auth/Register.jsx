@@ -37,7 +37,7 @@ function Register() {
     try {
       setLoading(true);
 
-      const res = await api.post("/auth/register", form);
+      const res = await api.post("api/auth/register", form);
 
       // optional: backend message show
       if (!res.data?.success) {
