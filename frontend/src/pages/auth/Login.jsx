@@ -37,7 +37,7 @@ function Login() {
     try {
       setLoading(true);
 
-      const res = await api.post("api/auth/login", form);
+      const res = await api.post("/auth/login", form);
 
       if (!res.data?.data?.accessToken) {
         throw new Error("Invalid response");

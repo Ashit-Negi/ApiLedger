@@ -28,7 +28,7 @@ connectDB();
 // 🔗 ROUTES
 app.use("/api/auth", authRoutes);
 app.use("/api/apis", apiRoutes);
-app.use("/gateway", gatewayRoutes);
+app.use("/api/gateway", gatewayRoutes);
 app.use("/api/usage", usageRoutes);
 app.use("/api/payment", paymentRoutes);
 
