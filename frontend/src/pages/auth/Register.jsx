@@ -62,7 +62,7 @@ function Register() {
         </h2>
 
         <p className="text-center text-gray-500 mb-6">
-          Start building with MeterFlow
+          Start building with ApiLedger for free
         </p>
 
         {errors.general && (

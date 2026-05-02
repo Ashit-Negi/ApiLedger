@@ -61,7 +61,7 @@ function Login() {
         <h2 className="text-2xl font-bold mb-2 text-center">Welcome Back 👋</h2>
 
         <p className="text-center text-gray-500 mb-6">
-          Login to continue to MeterFlow
+          Login to continue to ApiLedger
         </p>
 
         {errors.general && (
